@@ -5,6 +5,8 @@ require_relative 'response/status_response'
 require_relative 'response/status_list_response'
 require_relative 'response/version_response'
 require_relative 'response/order_response'
+require_relative 'response/carry_response'
+require_relative 'response/pickup_response'
 
 class AxiomusApi::Session
   include AxiomusApi::Actions
@@ -49,7 +51,7 @@ class AxiomusApi::Session
     xml_request = create_request(:get_boxberry_pickup)
     xml_request.auth.ukey = @ukey
     response = send_request(xml_request)
-    AxiomusApi::CarryResponse.new(response.body)
+    AxiomusApi::PickupResponse.new(response.body)
   end
 
   def status(okey)

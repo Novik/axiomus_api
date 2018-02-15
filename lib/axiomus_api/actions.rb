@@ -3,7 +3,7 @@ require_relative('request/order_request')
 require_relative('request/status_request')
 require_relative('request/status_list_request')
 require_relative('request/carry_request')
-
+require_relative('request/pickup_request')
 
 module AxiomusApi::Actions
   ACTIONS = {
@@ -29,7 +29,10 @@ module AxiomusApi::Actions
     status: AxiomusApi::StatusRequest,
     status_list: AxiomusApi::StatusListRequest,
     get_version: AxiomusApi::Request,
-    get_carry: AxiomusApi::CarryRequest
+    get_carry: AxiomusApi::CarryRequest,
+    new_boxberry_pickup: AxiomusApi::OrderRequest,
+    update_boxberry_pickup: AxiomusApi::OrderRequest,
+    get_boxberry_pickup: AxiomusApi::PickupRequest
   }
 
   def create_request(mode)
