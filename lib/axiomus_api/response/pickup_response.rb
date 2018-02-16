@@ -40,7 +40,7 @@ class AxiomusApi::PickupResponse
       @metro               = node.xpath('@Metro').text
       @office_address      = node.xpath('@office_address').text
       @office_name         = node.xpath('@office_name').text
-      @office_code         = node.xpath('@office_code').text.to_i
+      @office_code         = node.xpath('@office_code').text
     end
   end
 
