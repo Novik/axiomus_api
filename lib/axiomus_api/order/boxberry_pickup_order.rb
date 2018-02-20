@@ -1,4 +1,4 @@
-require_relative 'region_order'
+require_relative 'base_order'
 require_relative '../address/boxberry_pickup_address'
 require_relative '../services/boxberry_services'
 
