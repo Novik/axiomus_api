@@ -2,7 +2,7 @@ require_relative 'base_order'
 require_relative '../address/boxberry_pickup_address'
 require_relative '../services/boxberry_services'
 
-class AxiomusApi::RegionPickupOrder < AxiomusApi::BaseOrder
+class AxiomusApi::BoxberryPickupOrder < AxiomusApi::BaseOrder
 
   xml_attribute :d_date
   xml_field :address, type: AxiomusApi::BoxberryPickupAddress
