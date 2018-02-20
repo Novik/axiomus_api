@@ -39,7 +39,9 @@ class AxiomusApi::BaseOrder < AxiomusApi::Base
       new_region_courier: AxiomusApi::RegionCourierOrder,
       update_region_courier: AxiomusApi::RegionCourierOrder,
       new_region_pickup: AxiomusApi::RegionPickupOrder,
-      update_region_pickup: AxiomusApi::RegionPickupOrder
+      update_region_pickup: AxiomusApi::RegionPickupOrder,
+      update_boxberry_pickup: AxiomusApi::BoxberryPickupOrder,
+      get_boxberry_pickup: AxiomusApi::BoxberryPickupOrder
     }[mode].new
   end
 
