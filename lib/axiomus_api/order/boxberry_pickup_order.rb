@@ -7,6 +7,6 @@ class AxiomusApi::BoxberryPickupOrder < AxiomusApi::BaseOrder
   xml_attribute :d_date
   xml_field :address, type: AxiomusApi::BoxberryPickupAddress
   xml_attribute :incl_deliv_sum, :email, optional: true
-  xml_field :services, type: AxiomusApi::BoxberryServices
+  xml_field :services, optional: true, type: AxiomusApi::BoxberryServices
 
 end
