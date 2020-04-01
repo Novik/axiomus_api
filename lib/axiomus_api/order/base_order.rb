@@ -9,7 +9,7 @@ class AxiomusApi::BaseOrder < AxiomusApi::Base
   xml_field :items, type: AxiomusApi::Items
   xml_field :description, optional: true
   xml_attribute :inner_id, :okey, :avoid_part_return, optional: true
-  xml_attribute :name, :places
+  xml_attribute :name, :places, :address_zone
   xml_field :services, type: AxiomusApi::Services
 
   def total_quantity
