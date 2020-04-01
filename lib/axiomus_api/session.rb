@@ -111,7 +111,8 @@ class AxiomusApi::Session
 
   def send_request(xml_request)
     uri = URI(AxiomusApi::AXIOMUS_ENDPOINT)
-    connection = Net::HTTP.new(uri.host, uri.port, use_ssl: (uri.scheme == 'https'))
+    connection = Net::HTTP.new(uri.host, uri.port)
+    connection.use_ssl = (uri.scheme == 'https')
     http_request = get_http_request(xml_request)
     logger.info("Request to #{xml_request.mode}")
     logger.info("Request body: #{xml_request.to_xml(true)}")
