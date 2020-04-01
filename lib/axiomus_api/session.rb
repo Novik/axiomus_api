@@ -99,10 +99,6 @@ class AxiomusApi::Session
     order_response
   end
 
-  def labels_link(orders)
-    "http://axiomus.ru/system/control/_call.php?mode=label&order=#{orders.join(',')}"
-  end
-
   private
 
   def get_order_request(mode, order)
@@ -114,7 +110,8 @@ class AxiomusApi::Session
   end
 
   def send_request(xml_request)
-    connection = Net::HTTP.new(AxiomusApi::AXIOMUS_HOST, AxiomusApi::AXIOMUS_PORT)
+    uri = URI(AxiomusApi::AXIOMUS_ENDPOINT)
+    connection = Net::HTTP.new(uri.host, uri.port, use_ssl: (uri.scheme == 'https'))
     http_request = get_http_request(xml_request)
     logger.info("Request to #{xml_request.mode}")
     logger.info("Request body: #{xml_request.to_xml(true)}")
