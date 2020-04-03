@@ -4,7 +4,7 @@ describe AxiomusApi::Session do
   before(:all) do
     AxiomusApi.logger.level = Logger::UNKNOWN
 
-    @session = AxiomusApi.test_session
+    @session = AxiomusApi.session
   end
 
   def enqueue_response(response_body, code = '200', msg='OK')
@@ -77,7 +77,7 @@ describe AxiomusApi::Session do
     enqueue_response(DummyData::REGIONS_SUCCESS_RESPONSE)
     res = nil
 
-    AxiomusApi.test_session do |s|
+    AxiomusApi.session do |s|
       res = s.get_regions
     end
 

@@ -11,13 +11,8 @@ require_relative 'response/pickup_response'
 class AxiomusApi::Session
   include AxiomusApi::Actions
 
-  attr_reader :test
-
-  def initialize(uid, ukey, test = true)
-    @test = test
-    @uid = uid
-    @ukey = ukey
-
+  def initialize(args={})
+    @credentials = AxiomusApi::AXIOMUS_DEFAULTS.merge(args)
     if(block_given?)
       yield self
     end
@@ -103,17 +98,17 @@ class AxiomusApi::Session
 
   def get_order_request(mode, order)
     xml_request = create_request(mode)
-    xml_request.auth.ukey = @ukey
+    xml_request.auth.ukey = @credentials[:ukey]
     xml_request.order = order
-    xml_request.prepare_checksum(@uid)
+    xml_request.prepare_checksum(@credentials[:uid])
     xml_request
   end
 
   def send_request(xml_request)
-    uri = URI(AxiomusApi::AXIOMUS_ENDPOINT)
+    uri = URI(@credentials[:endpoint])
     connection = Net::HTTP.new(uri.host, uri.port)
     connection.use_ssl = (uri.scheme == 'https')
-    http_request = get_http_request(xml_request)
+    http_request = get_http_request(xml_request,uri.path)
     logger.info("Request to #{xml_request.mode}")
     logger.info("Request body: #{xml_request.to_xml(true)}")
     response = connection.request(http_request)
@@ -123,11 +118,7 @@ class AxiomusApi::Session
     response
   end
 
-  def api_path
-    @test ? AxiomusApi::AXIOMUS_TEST_PATH : AxiomusApi::AXIOMUS_PROD_PATH
-  end
-
-  def get_http_request(xml_request)
+  def get_http_request(xml_request,api_path)
     res = ::Net::HTTP::Post.new(api_path)
     res.body = "data=#{xml_request.to_xml(true)}"
     res
